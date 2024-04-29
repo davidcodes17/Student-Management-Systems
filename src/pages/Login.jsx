@@ -10,6 +10,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const toast = useToast();
@@ -33,7 +34,8 @@ const Login = () => {
       })
       .then((data) => {
         data.data.length > 50
-          ? (location.href = "/admin") && localStorage.setItem("token",data.data)
+          ? (location.href = "/admin") &&
+            localStorage.setItem("token", data.data)
           : toast({
               title: "Login Failed",
               description: "Wrong Credentials",
@@ -85,6 +87,9 @@ const Login = () => {
                 type="password"
               />
             </FormControl>
+            <Text fontSize={12} textAlign={"center"} mt={5}>
+              <Link to={"/signup"} >Don't have an account? Sign Up</Link>
+            </Text>
             <Button
               bg={"tomato"}
               color={"#fff"}

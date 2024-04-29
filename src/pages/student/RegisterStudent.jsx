@@ -9,9 +9,53 @@ import {
   Select,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const RegisterStudnet = () => {
+  const [user, setUser] = useState({
+    fullName: "",
+    email: "",
+    matrixNumber: "",
+    phoneNumber: "",
+    department: "",
+  });
+
+  const createAccount = () => {
+    fetch("http://localhost:8080/student", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        fullName: user.fullName,
+        email: user.email,
+        matrixNumber: user.matrixNumber,
+        phoneNumber: user.phoneNumber,
+        department: user.department,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data)
+        if (data.data.message != "ERROR") {
+          toast({
+            title: "Account Created Successfully",
+            description: "You've just created an account",
+            duration: 1000,
+            status: "success",
+          });
+          localStorage.setItem("studentId", data.data.id);
+          localStorage.setItem("department", data.data.department);
+          location.replace("/student/dashboard");
+        } else {
+          location.reload();
+        }
+      });
+  };
+
   return (
     <Box>
       <Flex justifyContent={"center"} mt={"50px"}>
@@ -29,27 +73,83 @@ const RegisterStudnet = () => {
           <Box mt={5}>
             <FormControl>
               <FormLabel fontWeight={300}>Full Name</FormLabel>
-              <Input height={9} fontSize={12} fontWeight={300} type="text" />
+              <Input
+                value={user.fullName}
+                onChange={(e) => {
+                  setUser({ ...user, fullName: e.target.value });
+                }}
+                height={9}
+                fontSize={12}
+                fontWeight={300}
+                type="text"
+              />
             </FormControl>
             <FormControl mt={5}>
               <FormLabel fontWeight={300}>Email</FormLabel>
-              <Input height={9} fontSize={12} fontWeight={300} type="email" />
+              <Input
+                value={user.email}
+                onChange={(e) => {
+                  setUser({ ...user, email: e.target.value });
+                }}
+                height={9}
+                fontSize={12}
+                fontWeight={300}
+                type="email"
+              />
             </FormControl>
             <FormControl mt={5}>
               <FormLabel fontWeight={300}>Matix Number</FormLabel>
-              <Input height={9} fontSize={12} fontWeight={300} type="text" />
+              <Input
+                value={user.matrixNumber}
+                onChange={(e) => {
+                  setUser({ ...user, matrixNumber: e.target.value });
+                }}
+                height={9}
+                fontSize={12}
+                fontWeight={300}
+                type="text"
+              />
             </FormControl>
             <FormControl mt={5}>
               <FormLabel fontWeight={300}>Phone Number</FormLabel>
-              <Input height={9} fontSize={12} fontWeight={300} type="tel" />
+              <Input
+                value={user.phoneNumber}
+                onChange={(e) => {
+                  setUser({ ...user, phoneNumber: e.target.value });
+                }}
+                height={9}
+                fontSize={12}
+                fontWeight={300}
+                type="tel"
+              />
             </FormControl>
-            <Select mt={5}>
-                <option>Computer Science</option>
-                <option>Computer Engineering</option>
-                <option>Electical Engineering</option>
-                <option>Business Administration</option>
-                <option>Accounting</option>
-            </Select>
+            <FormControl mt={5}>
+              <FormLabel fontWeight={300}>Department</FormLabel>
+              <Select
+                value={user.department}
+                onChange={(e) => {
+                  setUser({ ...user, department: e.target.value });
+                }}
+                mt={5}
+              >
+                <option value={"Computer Science"}>Computer Science</option>
+                <option value={"Computer Engineering"}>
+                  Computer Engineering
+                </option>
+                <option value={"Electical Engineering"}>
+                  Electical Engineering
+                </option>
+                <option value={"Business Administration"}>
+                  Business Administration
+                </option>
+                <option value={"Accounting"}>Accounting</option>
+              </Select>
+            </FormControl>
+            <Text fontSize={12} textAlign={"center"} mt={5}>
+              <Link to={"/student/login"}>
+                Already have an account? Sign Up
+              </Link>
+            </Text>
             <Button
               bg={"tomato"}
               color={"#fff"}
@@ -57,6 +157,11 @@ const RegisterStudnet = () => {
               mt={5}
               width={"100%"}
               py={6}
+              onClick={() => {
+                console.log(user);
+                createAccount();
+                location.replace("/student/dashboard")
+              }}
               borderRadius={10}
             >
               Register

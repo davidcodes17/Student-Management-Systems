@@ -26,13 +26,14 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Link as Ln } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
 const CoursesTable = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const cancelRef = React.useRef();
+  const [id,setId] = useState(null);
   const deletecourse = (courseId) => {
     fetch("http://localhost:8080/course/" + courseId, {
       method: "DELETE",
@@ -93,6 +94,7 @@ const CoursesTable = ({ data }) => {
                       <MenuItem
                         onClick={() => {
                           onOpen();
+                          setId(course.courseId)
                         }}
                       >
                         Delete Course
@@ -124,7 +126,7 @@ const CoursesTable = ({ data }) => {
                             colorScheme="red"
                             onClick={() => {
                               onClose();
-                              deletecourse(course.courseId);
+                              deletecourse(id);
                               location.reload();
                             }}
                             ml={3}

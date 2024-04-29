@@ -1,18 +1,32 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../layouts/Header";
 import Navigation from "../../layouts/Navigation";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
-  useEffect(()=>{
+  const [user, setUser] = useState({
+    email: "",
+  });
+  useEffect(() => {
     if (localStorage.getItem("token") != null) {
-      return;
+      fetch("http://localhost:8080/profile", {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("token"),
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setUser({ email: data.data });
+        });
+    } else {
+      window.location.replace("/login");
     }
-    else{
-      window.location.replace("/login")
-    }
-  })
+  },[]);
   return (
     <Box
       bgImage={"url('/bg.png')"}
@@ -33,7 +47,7 @@ const Dashboard = () => {
           textAlign={"center"}
           mt={20}
         >
-          Welcome Back, Areegbe 👋
+          Welcome Back, <br /> {user.email} 👋
         </Heading>
         <Text
           textAlign={"center"}

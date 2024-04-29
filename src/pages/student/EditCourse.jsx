@@ -7,6 +7,7 @@ import {
   Heading,
   IconButton,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { ArrowLeft } from "iconsax-react";
 import React, { useEffect, useState } from "react";
@@ -14,6 +15,7 @@ import { useParams } from "react-router-dom";
 
 const EditCourse = () => {
   const { id } = useParams();
+  const toast = useToast();
   const [course, setCourse] = useState({
     courseName: "",
     department: "",
@@ -37,6 +39,13 @@ const EditCourse = () => {
       })
       .then((data) => {
         console.log(data);
+        toast({
+            title : "Updated Successfully",
+            description : "",
+            status : 'success',
+            duration : 1000,
+            isClosable : true
+        })
       });
   };
 
