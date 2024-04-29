@@ -42,7 +42,7 @@ const Navigation = () => {
           </Tooltip>
           <IconButton
             as={Link}
-            to={"/users"}
+            to={"/students"}
             className="icon"
             borderRadius={20}
             color={"#fff !important"}

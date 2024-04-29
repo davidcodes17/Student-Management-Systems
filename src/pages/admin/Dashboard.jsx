@@ -1,10 +1,18 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../layouts/Header";
 import Navigation from "../../layouts/Navigation";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
+  useEffect(()=>{
+    if (localStorage.getItem("token") != null) {
+      return;
+    }
+    else{
+      window.location.replace("/login")
+    }
+  })
   return (
     <Box
       bgImage={"url('/bg.png')"}

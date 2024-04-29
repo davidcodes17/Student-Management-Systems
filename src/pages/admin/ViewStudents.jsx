@@ -9,14 +9,18 @@ const ViewStudents = () => {
   const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8080/students")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setStudents(data);
-      });
+    if (localStorage.getItem("token") != null) {
+      fetch("http://localhost:8080/students")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setStudents(data);
+        });
+    } else {
+      window.location.replace("/login");
+    }
   }, []);
   const filteredData = students.filter(
     (item) =>

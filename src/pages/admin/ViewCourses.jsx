@@ -15,6 +15,7 @@ import {
   useDisclosure,
   FormControl,
   FormLabel,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Navigation from "../../layouts/Navigation";
@@ -33,15 +34,49 @@ const ViewCourses = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   useEffect(() => {
-    fetch("http://localhost:8080/courses")
+    if (localStorage.getItem("token") != null) {
+      fetch("http://localhost:8080/courses")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setCourses(data);
+        });
+    } else {
+      window.location.replace("/login");
+    }
+  }, []);
+
+  const toast = useToast();
+  const newCourse = () => {
+    fetch("http://localhost:8080/course", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        courseName: course.courseName,
+        department: course.department,
+        courseDocumentLink: course.courseDocumentLink,
+      }),
+    })
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         console.log(data);
-        setCourses(data);
+        window.location.reload();
+        toast({
+          title: "Course Created",
+          description: "Course Added Successfully",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       });
-  }, []);
+  };
+
   const filteredData = courses.filter(
     (item) =>
       item.courseName.toLowerCase().includes(search.toLowerCase()) ||
@@ -128,7 +163,10 @@ const ViewCourses = () => {
                     fontSize={12}
                     value={course.courseDocumentLink}
                     onChange={(e) => {
-                      setCourse({ ...course, courseDocumentLink: e.target.value });
+                      setCourse({
+                        ...course,
+                        courseDocumentLink: e.target.value,
+                      });
                     }}
                   />
                 </FormControl>
@@ -139,7 +177,9 @@ const ViewCourses = () => {
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme="blue">Save</Button>
+              <Button colorScheme="blue" onClick={newCourse}>
+                Save
+              </Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>

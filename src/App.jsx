@@ -10,6 +10,7 @@ import ViewStudents from "./pages/admin/ViewStudents";
 import ViewCourses from "./pages/admin/ViewCourses";
 import NotFound from "./pages/not_found/NotFound";
 import StudentDashboard from "./pages/student/StudentDashboard";
+import EditCourse from "./pages/student/EditCourse";
 
 const App = () => {
   return (
@@ -19,9 +20,10 @@ const App = () => {
       <Route path="/signup" element={<SignUp />}></Route>
       <Route path="/student/login" element={<SignIn />}></Route>
       <Route path="/student/register" element={<RegisterStudnet />}></Route>
+      <Route path="/edit/:id" element={<EditCourse />}></Route>
       <Route path="/student/dashboard" element={<StudentDashboard />}></Route>
       <Route path="/admin" element={<Dashboard />}></Route>
-      <Route path="/users" element={<ViewStudents />}></Route>
+      <Route path="/students" element={<ViewStudents />}></Route>
       <Route path="/courses" element={<ViewCourses />}></Route>
       <Route path="*" element={<NotFound />}></Route>
     </Routes>

@@ -7,10 +7,12 @@ import {
   Heading,
   Input,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 const Login = () => {
+  const toast = useToast();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -30,9 +32,15 @@ const Login = () => {
         return res.json();
       })
       .then((data) => {
-        data.length > 50
-          ? (location.href = "/admin")
-          : location.replace("/login");
+        data.data.length > 50
+          ? (location.href = "/admin") && localStorage.setItem("token",data.data)
+          : toast({
+              title: "Login Failed",
+              description: "Wrong Credentials",
+              status: "error",
+              duration: 9000,
+              isClosable: true,
+            });
         console.log(data);
       });
   };
