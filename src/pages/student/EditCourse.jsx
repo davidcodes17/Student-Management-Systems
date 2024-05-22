@@ -23,39 +23,46 @@ const EditCourse = () => {
   });
 
   const updateCourse = () => {
-    fetch("http://localhost:8080/course/" + id, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "PUT",
-      body: JSON.stringify({
-        courseName: course.courseName,
-        department: course.department,
-        courseDocumentLink: course.courseDocumentLink,
-      }),
-    })
+    fetch(
+      "https://student-management-system-api-l1jv.onrender.com/course/" + id,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PUT",
+        body: JSON.stringify({
+          courseName: course.courseName,
+          department: course.department,
+          courseDocumentLink: course.courseDocumentLink,
+        }),
+      }
+    )
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         console.log(data);
         toast({
-            title : "Updated Successfully",
-            description : "",
-            status : 'success',
-            duration : 1000,
-            isClosable : true
-        })
+          title: "Updated Successfully",
+          description: "",
+          status: "success",
+          duration: 1000,
+          isClosable: true,
+        });
       });
   };
 
   useEffect(() => {
-    fetch("http://localhost:8080/get-course/" + id, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "GET",
-    })
+    fetch(
+      "https://student-management-system-api-l1jv.onrender.com/get-course/" +
+        id,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "GET",
+      }
+    )
       .then((res) => {
         return res.json();
       })
@@ -76,7 +83,7 @@ const EditCourse = () => {
           borderRadius={40}
           bg={"#000"}
           onClick={() => {
-            window.history.back()
+            window.history.back();
           }}
           color={"#fff"}
           icon={<ArrowLeft />}

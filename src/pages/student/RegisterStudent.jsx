@@ -22,7 +22,7 @@ const RegisterStudnet = () => {
   });
 
   const createAccount = () => {
-    fetch("http://localhost:8080/student", {
+    fetch("https://student-management-system-api-l1jv.onrender.com/student", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -39,7 +39,7 @@ const RegisterStudnet = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data)
+        console.log(data);
         if (data.data.message != "ERROR") {
           toast({
             title: "Account Created Successfully",
@@ -160,7 +160,7 @@ const RegisterStudnet = () => {
               onClick={() => {
                 console.log(user);
                 createAccount();
-                location.replace("/student/dashboard")
+                location.replace("/student/dashboard");
               }}
               borderRadius={10}
             >

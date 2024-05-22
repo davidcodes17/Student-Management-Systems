@@ -21,16 +21,19 @@ const SignIn = () => {
   const toast = useToast();
 
   const login = () => {
-    fetch("http://localhost:8080/student-login", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        email: student.email,
-        matrixNumber: student.matrixNumber,
-      }),
-    })
+    fetch(
+      "https://student-management-system-api-l1jv.onrender.com/student-login",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          email: student.email,
+          matrixNumber: student.matrixNumber,
+        }),
+      }
+    )
       .then((res) => {
         return res.json();
       })
@@ -93,7 +96,9 @@ const SignIn = () => {
               />
             </FormControl>
             <Text fontSize={12} textAlign={"center"} mt={5}>
-              <Link to={"/student/register"}>Don't have an account? Sign Up</Link>
+              <Link to={"/student/register"}>
+                Don't have an account? Sign Up
+              </Link>
             </Text>
             <Button
               bg={"tomato"}

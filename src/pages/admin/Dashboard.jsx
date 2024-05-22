@@ -10,10 +10,10 @@ const Dashboard = () => {
   });
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
-      fetch("http://localhost:8080/profile", {
+      fetch("https://student-management-system-api-l1jv.onrender.com/profile", {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
         .then((res) => {
@@ -26,7 +26,7 @@ const Dashboard = () => {
     } else {
       window.location.replace("/login");
     }
-  },[]);
+  }, []);
   return (
     <Box
       bgImage={"url('/bg.png')"}

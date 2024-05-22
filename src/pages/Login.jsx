@@ -13,13 +13,17 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  localStorage.setItem(
+    "token",
+    "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOiIzOGUwMzc4My0yMzFjLTQ5ZWMtYmY2ZC05MjE1ODk4NTE2OGMiLCJpYXQiOjE3MTYzNzc3ODAsImV4cCI6MTcxNjM4MTM4MH0.NGUjnm-ZG0x7XWS-ZW5KVCO5goOE-DrLRyr8G4ibRETFpV_S-GfwjVVBiI1iNpLxQS0oyGWi7NyHXnEaEyfJVA"
+  );
   const toast = useToast();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
   const login = () => {
-    fetch("http://localhost:8080/login", {
+    fetch("https://student-management-system-api-l1jv.onrender.com/login", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -88,7 +92,7 @@ const Login = () => {
               />
             </FormControl>
             <Text fontSize={12} textAlign={"center"} mt={5}>
-              <Link to={"/signup"} >Don't have an account? Sign Up</Link>
+              <Link to={"/signup"}>Don't have an account? Sign Up</Link>
             </Text>
             <Button
               bg={"tomato"}

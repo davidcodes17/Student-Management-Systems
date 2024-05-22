@@ -35,7 +35,7 @@ const ViewCourses = () => {
   const btnRef = React.useRef();
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
-      fetch("http://localhost:8080/courses")
+      fetch("https://student-management-system-api-l1jv.onrender.com/courses")
         .then((res) => {
           return res.json();
         })
@@ -50,7 +50,7 @@ const ViewCourses = () => {
 
   const toast = useToast();
   const newCourse = () => {
-    fetch("http://localhost:8080/course", {
+    fetch("https://student-management-system-api-l1jv.onrender.com/course", {
       headers: {
         "Content-Type": "application/json",
       },

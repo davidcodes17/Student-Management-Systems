@@ -20,7 +20,7 @@ const SignUp = () => {
   });
 
   const login = () => {
-    fetch("http://localhost:8080/signup", {
+    fetch("https://student-management-system-api-l1jv.onrender.com/signup", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -41,7 +41,7 @@ const SignUp = () => {
           duration: 1000,
           isClosable: true,
         });
-        location.href = "/admin"
+        location.href = "/admin";
       });
   };
   return (

@@ -35,19 +35,23 @@ const StudentDashboard = () => {
   });
 
   const updateUserDetails = (id) => {
-    fetch("http://localhost:8080/student/" + user.id, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "PUT",
-      body: JSON.stringify({
-        fullName: user.fullName,
-        email: user.email,
-        matrixNumber: user.matrixNumber,
-        phoneNumber: user.phoneNumber,
-        department: user.department,
-      }),
-    })
+    fetch(
+      "https://student-management-system-api-l1jv.onrender.com/student/" +
+        user.id,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PUT",
+        body: JSON.stringify({
+          fullName: user.fullName,
+          email: user.email,
+          matrixNumber: user.matrixNumber,
+          phoneNumber: user.phoneNumber,
+          department: user.department,
+        }),
+      }
+    )
       .then((res) => {
         return res.json();
       })
@@ -58,7 +62,10 @@ const StudentDashboard = () => {
 
   const btnRef = React.useRef();
   useEffect(() => {
-    fetch("http://localhost:8080/student/" + localStorage.getItem("studentId"))
+    fetch(
+      "https://student-management-system-api-l1jv.onrender.com/student/" +
+        localStorage.getItem("studentId")
+    )
       .then((res) => {
         return res.json();
       })
@@ -73,7 +80,10 @@ const StudentDashboard = () => {
           department: data.data.department,
         });
       });
-    fetch("http://localhost:8080/course/"+localStorage.getItem("department"))
+    fetch(
+      "https://student-management-system-api-l1jv.onrender.com/course/" +
+        localStorage.getItem("department")
+    )
       .then((res) => {
         return res.json();
       })

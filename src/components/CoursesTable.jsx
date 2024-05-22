@@ -33,11 +33,15 @@ const CoursesTable = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const cancelRef = React.useRef();
-  const [id,setId] = useState(null);
+  const [id, setId] = useState(null);
   const deletecourse = (courseId) => {
-    fetch("http://localhost:8080/course/" + courseId, {
-      method: "DELETE",
-    })
+    fetch(
+      "https://student-management-system-api-l1jv.onrender.com/course/" +
+        courseId,
+      {
+        method: "DELETE",
+      }
+    )
       .then((res) => {
         return res.json();
       })
@@ -94,7 +98,7 @@ const CoursesTable = ({ data }) => {
                       <MenuItem
                         onClick={() => {
                           onOpen();
-                          setId(course.courseId)
+                          setId(course.courseId);
                         }}
                       >
                         Delete Course

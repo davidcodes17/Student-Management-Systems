@@ -10,7 +10,7 @@ const ViewStudents = () => {
   const [students, setStudents] = useState([]);
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
-      fetch("http://localhost:8080/students")
+      fetch("https://student-management-system-api-l1jv.onrender.com/students")
         .then((res) => {
           return res.json();
         })
